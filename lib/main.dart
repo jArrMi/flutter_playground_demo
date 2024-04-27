@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_playrground_1/provider/launch_provider.dart';
-import 'package:flutter_playrground_1/ui/launch_list_page.dart';
+import 'package:flutter_playrground_1/ui/launches/launch_list_page.dart';
 import 'package:provider/provider.dart';
 
 void main() {

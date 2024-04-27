@@ -5,7 +5,7 @@ import '../models/launch.dart';
 class ApiClient {
   final Dio _dio = Dio();
 
-  Future<List<Launch>> fetchLaunchList() async {
+  Future<List<Launch>> fetchPastLaunches() async {
     try {
       final response = await _dio.get('https://api.spacexdata.com/v5/launches/past');
       if (response.statusCode == 200) {

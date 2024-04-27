@@ -18,7 +18,7 @@ class LaunchProvider extends ChangeNotifier {
     notifyListeners();
 
     ApiClient apiClient = ApiClient();
-    _launches = await apiClient.fetchLaunchList();
+    _launches = await apiClient.fetchPastLaunches();
 
     _isLoading = false;
     notifyListeners();
