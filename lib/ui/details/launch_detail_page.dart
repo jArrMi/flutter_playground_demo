@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_playrground_1/models/launch.dart';
+import 'package:flutter_playrground_1/provider/rocket_provider.dart';
 import 'package:flutter_playrground_1/utils/formatters.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LaunchDetailPage extends StatefulWidget {
@@ -27,13 +29,13 @@ class _LaunchDetailPageState extends State<LaunchDetailPage> {
             children: <Widget>[
               widget.launch.links.patch.large != null
                   ? Image.network(
-                widget.launch.links.patch.large!,
-                height: 150,
-              )
+                      widget.launch.links.patch.large!,
+                      height: 150,
+                    )
                   : Image.asset(
-                'assets/images/rocket_launch.png',
-                height: 150,
-              ),
+                      'assets/images/rocket_launch.png',
+                      height: 150,
+                    ),
               const SizedBox(height: 10),
               Text(
                 'Launch Date: ${widget.launch.date_local.formattedDate()}',
@@ -47,9 +49,17 @@ class _LaunchDetailPageState extends State<LaunchDetailPage> {
                     )
                   : Container(),
               const SizedBox(height: 10),
-              Text(
-                'Rocket: ${widget.launch.rocket}',
-                style: const TextStyle(fontSize: 16),
+              Consumer<RocketProvider>(
+                builder: (context, rocketProvider, child) {
+                  if (rocketProvider.isLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else {
+                    return Text(
+                      'Rocket: ${rocketProvider.rocket != null ? rocketProvider.rocket!.name : 'Rocket Not Availaablle'}',
+                      style: const TextStyle(fontSize: 16),
+                    );
+                  }
+                },
               ),
               const SizedBox(height: 10),
               Text(
