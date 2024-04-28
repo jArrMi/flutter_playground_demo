@@ -41,8 +41,8 @@ class ApiClient {
   }
 
   List<SortedLaunches> _groupLaunchesByMonth(List<Launch> launchList) {
-    launchList.sort((a, b) => b.date_utc.compareTo(a.date_utc));
-    return groupBy(launchList, (Launch launch) => launch.date_utc.substring(0, 7))
+    launchList.sort((a, b) => b.date_local.compareTo(a.date_local));
+    return groupBy(launchList, (Launch launch) => launch.date_local.substring(0, 7))
         .entries
         .map((entry) {
       return SortedLaunches(entry.key.toLaunchMonth(), entry.value);

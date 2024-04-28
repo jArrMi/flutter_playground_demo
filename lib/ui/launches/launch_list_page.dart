@@ -55,34 +55,33 @@ class LaunchListPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  ...launchProvider.launches[index].launches.map((launch) {
-                    return ListTile(
-                      leading: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child:  launch.links.patch.small != null
-                            ? Image.network(
-                          launch.links.patch.small!,
-                          width: 100,
-                          height: 100,
-                        )
-                            : Image.asset(
-                          'assets/images/rocket_launch.png',
-                          width: 100,
-                          height: 100,
+                  ...launchProvider.launches[index].launches.map(
+                    (launch) {
+                      return ListTile(
+                        leading: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: launch.links.patch.small != null
+                              ? Image.network(
+                                  launch.links.patch.small!,
+                                  width: 100,
+                                  height: 100,
+                                )
+                              : Image.asset(
+                                  'assets/images/rocket_launch.png',
+                                  width: 100,
+                                  height: 100,
+                                ),
                         ),
-                      ),
-                      title: Text(launch.name),
-                      subtitle: Text(launch.date_utc.formattedDate()),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                              pageBuilder: (context, animation1, animation2) =>
-                                  LaunchDetailPage(
-                                    launch: launch,
-                                  ),
-                              transitionsBuilder:
-                                  (context, animation1, animation2, child) {
+                        title: Text(launch.name),
+                        subtitle: Text(launch.date_local.formattedDate()),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                              pageBuilder: (context, animation1, animation2) => LaunchDetailPage(
+                                launch: launch,
+                              ),
+                              transitionsBuilder: (context, animation1, animation2, child) {
                                 return SlideTransition(
                                   position: Tween<Offset>(
                                     begin: const Offset(1.0, 0.0),
@@ -90,11 +89,13 @@ class LaunchListPage extends StatelessWidget {
                                   ).animate(animation1),
                                   child: child,
                                 );
-                              }),
-                        );
-                      },
-                    );
-                  }).toList(),
+                              },
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
                 ],
               );
             },
