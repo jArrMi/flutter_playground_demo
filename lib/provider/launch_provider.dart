@@ -2,11 +2,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_playrground_1/models/launch.dart';
 import 'package:flutter_playrground_1/network/api_client.dart';
 
+import '../models/sorted_launches.dart';
+
 class LaunchProvider extends ChangeNotifier {
-  List<Launch> _launches = [];
+  List<SortedLaunches> _launches = [];
   bool _isLoading = true;
 
-  List<Launch> get launches => _launches;
+  List<SortedLaunches> get launches => _launches;
   bool get isLoading => _isLoading;
 
   LaunchProvider() {
