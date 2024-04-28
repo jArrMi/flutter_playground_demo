@@ -4,12 +4,12 @@ part 'core.g.dart';
 
 @JsonSerializable()
 class Core {
-  final String core;
-  final int flight;
-  final bool gridfins;
-  final bool legs;
-  final bool reused;
-  final bool landing_attempt;
+  final String? core;
+  final int? flight;
+  final bool? gridfins;
+  final bool? legs;
+  final bool? reused;
+  final bool? landing_attempt;
   final bool? landing_success;
   final String? landing_type;
   final String? landpad;

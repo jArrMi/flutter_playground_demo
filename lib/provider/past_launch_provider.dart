@@ -1,26 +1,30 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_playrground_1/models/launch.dart';
 import 'package:flutter_playrground_1/network/api_client.dart';
+import 'package:flutter_playrground_1/provider/base/launch_provider.dart';
 
 import '../models/sorted_launches.dart';
 
-class LaunchProvider extends ChangeNotifier {
-  List<SortedLaunches> _launches = [];
+class PastLaunchProvider extends ChangeNotifier implements LaunchProvider {
+  List<SortedLaunches> _pastLaunches = [];
   bool _isLoading = true;
 
-  List<SortedLaunches> get launches => _launches;
+  @override
+  List<SortedLaunches> get launches => _pastLaunches;
+
+  @override
   bool get isLoading => _isLoading;
 
-  LaunchProvider() {
+  PastLaunchProvider() {
     fetchLaunches();
   }
 
+  @override
   Future<void> fetchLaunches() async {
     _isLoading = true;
     notifyListeners();
 
     ApiClient apiClient = ApiClient();
-    _launches = await apiClient.fetchPastLaunches();
+    _pastLaunches = await apiClient.fetchPastLaunches();
 
     _isLoading = false;
     notifyListeners();

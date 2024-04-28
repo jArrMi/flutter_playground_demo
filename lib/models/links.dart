@@ -31,8 +31,8 @@ class Links {
 
 @JsonSerializable()
 class Patch {
-  final String small;
-  final String large;
+  final String? small;
+  final String? large;
 
   Patch({
     required this.small,

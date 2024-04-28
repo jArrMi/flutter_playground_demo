@@ -29,8 +29,8 @@ Map<String, dynamic> _$LinksToJson(Links instance) => <String, dynamic>{
     };
 
 Patch _$PatchFromJson(Map<String, dynamic> json) => Patch(
-      small: json['small'] as String,
-      large: json['large'] as String,
+      small: json['small'] as String?,
+      large: json['large'] as String?,
     );
 
 Map<String, dynamic> _$PatchToJson(Patch instance) => <String, dynamic>{

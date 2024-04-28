@@ -28,14 +28,14 @@ class _LaunchDetailPageState extends State<LaunchDetailPage> {
                 style: const TextStyle(fontSize: 20),
               ),
               const SizedBox(height: 10),
-              widget.launch.links.patch != null
+              widget.launch.links.patch.small != null
                   ? Image.network(
-                      widget.launch.links.patch.small,
+                      widget.launch.links.patch.small!,
                       width: 100,
                       height: 100,
                     )
                   : Image.asset(
-                      'assets/images/default_patch.png',
+                      'assets/images/rocket_launch.png',
                       width: 100,
                       height: 100,
                     ),
