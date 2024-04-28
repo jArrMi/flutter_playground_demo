@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_playrground_1/models/launch.dart';
+import 'package:flutter_playrground_1/utils/formatters.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LaunchDetailPage extends StatefulWidget {
   final Launch launch;
@@ -23,23 +25,20 @@ class _LaunchDetailPageState extends State<LaunchDetailPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                'Launch Date: ${widget.launch.date_local}',
-                style: const TextStyle(fontSize: 20),
+              widget.launch.links.patch.large != null
+                  ? Image.network(
+                widget.launch.links.patch.large!,
+                height: 150,
+              )
+                  : Image.asset(
+                'assets/images/rocket_launch.png',
+                height: 150,
               ),
               const SizedBox(height: 10),
-              widget.launch.links.patch.small != null
-                  ? Image.network(
-                      widget.launch.links.patch.small!,
-                      width: 100,
-                      height: 100,
-                    )
-                  : Image.asset(
-                      'assets/images/rocket_launch.png',
-                      width: 100,
-                      height: 100,
-                    ),
-              // replace with your default image path
+              Text(
+                'Launch Date: ${widget.launch.date_local.formattedDate()}',
+                style: const TextStyle(fontSize: 20),
+              ),
               const SizedBox(height: 10),
               widget.launch.details != null
                   ? Text(
@@ -61,7 +60,7 @@ class _LaunchDetailPageState extends State<LaunchDetailPage> {
               widget.launch.links.wikipedia != null
                   ? TextButton(
                       onPressed: () {
-                        // Implement your function to open the link
+                        _launchURL(widget.launch.links.wikipedia!);
                       },
                       child: const Text(
                         'Wikipedia Link',
@@ -74,5 +73,14 @@ class _LaunchDetailPageState extends State<LaunchDetailPage> {
         ),
       ),
     );
+  }
+
+  Future<void> _launchURL(String url) async {
+    final uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.inAppBrowserView);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
