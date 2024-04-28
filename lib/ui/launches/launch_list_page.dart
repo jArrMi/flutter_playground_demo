@@ -86,7 +86,7 @@ class LaunchListPage extends StatelessWidget {
                                     create: (context) => RocketProvider(rocketId: launch.rocket),
                                   ),
                                   ChangeNotifierProvider(
-                                    create: (context) => LaunchpadProvider(launchpadId: launch.id),
+                                    create: (context) => LaunchpadProvider(launchpadId: launch.launchpad),
                                   ),
                                 ],
                                 child: LaunchDetailPage(launch: launch),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_playrground_1/models/launch.dart';
 import 'package:flutter_playrground_1/provider/launchpad_provider.dart';
 import 'package:flutter_playrground_1/provider/rocket_provider.dart';
+import 'package:flutter_playrground_1/ui/design/components/launchpad_card_details.dart';
 import 'package:flutter_playrground_1/ui/design/components/rocket_card_details.dart';
 import 'package:flutter_playrground_1/utils/formatters.dart';
 import 'package:provider/provider.dart';
@@ -66,10 +67,7 @@ class _LaunchDetailPageState extends State<LaunchDetailPage> {
                   if (launchpadProvider.isLoading) {
                     return const Center(child: CircularProgressIndicator());
                   } else {
-                    return Text(
-                      'Launchpad: ${launchpadProvider.launchpad != null ? launchpadProvider.launchpad!.name : 'Launchpad Not Available'}',
-                      style: const TextStyle(fontSize: 16),
-                    );
+                    return LaunchpadCard(launchpad: launchpadProvider.launchpad!);
                   }
                 },
               ),
