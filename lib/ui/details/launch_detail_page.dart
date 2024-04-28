@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_playrground_1/models/launch.dart';
+import 'package:flutter_playrground_1/provider/launchpad_provider.dart';
 import 'package:flutter_playrground_1/provider/rocket_provider.dart';
 import 'package:flutter_playrground_1/utils/formatters.dart';
 import 'package:provider/provider.dart';
@@ -8,7 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 class LaunchDetailPage extends StatefulWidget {
   final Launch launch;
 
-  LaunchDetailPage({required this.launch});
+  const LaunchDetailPage({required this.launch});
 
   @override
   _LaunchDetailPageState createState() => _LaunchDetailPageState();
@@ -27,14 +28,14 @@ class _LaunchDetailPageState extends State<LaunchDetailPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              widget.launch.links.patch.large != null
+              widget.launch.links.patch.small != null
                   ? Image.network(
-                      widget.launch.links.patch.large!,
-                      height: 150,
+                      widget.launch.links.patch.small!,
+                      height: 100,
                     )
                   : Image.asset(
                       'assets/images/rocket_launch.png',
-                      height: 150,
+                      height: 100,
                     ),
               const SizedBox(height: 10),
               Text(
@@ -62,9 +63,17 @@ class _LaunchDetailPageState extends State<LaunchDetailPage> {
                 },
               ),
               const SizedBox(height: 10),
-              Text(
-                'Launchpad: ${widget.launch.launchpad}',
-                style: const TextStyle(fontSize: 16),
+              Consumer<LaunchpadProvider>(
+                builder: (context, launchpadProvider, child) {
+                  if (launchpadProvider.isLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else {
+                    return Text(
+                      'Launchpad: ${launchpadProvider.launchpad != null ? launchpadProvider.launchpad!.name : 'Launchpad Not Available'}',
+                      style: const TextStyle(fontSize: 16),
+                    );
+                  }
+                },
               ),
               const SizedBox(height: 10),
               widget.launch.links.wikipedia != null

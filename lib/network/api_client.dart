@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_playrground_1/models/launch.dart';
+import 'package:flutter_playrground_1/models/launchpad.dart';
 import 'package:flutter_playrground_1/models/rocket.dart';
 import 'package:flutter_playrground_1/models/sorted_launches.dart';
 
@@ -53,6 +54,20 @@ class ApiClient {
       final response = await _dio.get('https://api.spacexdata.com/v4/rockets/$id');
       if (response.statusCode == 200) {
         return Rocket.fromJson(response.data);
+      } else {
+        throw Exception('Error fetching data :(');
+      }
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  Future<Launchpad?> fetchLaunchpad(String id) async {
+    try {
+      final response = await _dio.get('https://api.spacexdata.com/v4/launchpads/$id');
+      if (response.statusCode == 200) {
+        return Launchpad.fromJson(response.data);
       } else {
         throw Exception('Error fetching data :(');
       }

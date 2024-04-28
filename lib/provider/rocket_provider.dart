@@ -10,11 +10,9 @@ class RocketProvider extends ChangeNotifier {
   }
 
   Rocket? _rocket;
-
   Rocket? get rocket => _rocket;
 
   bool _isLoading = false;
-
   bool get isLoading => _isLoading;
 
   Future<void> fetchRockets() async {

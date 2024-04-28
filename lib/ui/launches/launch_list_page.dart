@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_playrground_1/provider/base/launch_provider.dart';
+import 'package:flutter_playrground_1/provider/launchpad_provider.dart';
 import 'package:flutter_playrground_1/provider/past_launch_provider.dart';
 import 'package:flutter_playrground_1/provider/rocket_provider.dart';
 import 'package:flutter_playrground_1/provider/upcoming_launch_provider.dart';
@@ -79,12 +80,16 @@ class LaunchListPage extends StatelessWidget {
                           Navigator.push(
                             context,
                             PageRouteBuilder(
-                              pageBuilder: (context, animation1, animation2) =>
-                                  ChangeNotifierProvider<RocketProvider>(
-                                create: (context) => RocketProvider(rocketId: launch.rocket),
-                                child: LaunchDetailPage(
-                                  launch: launch,
-                                ),
+                              pageBuilder: (context, animation1, animation2) => MultiProvider(
+                                providers: [
+                                  ChangeNotifierProvider(
+                                    create: (context) => RocketProvider(rocketId: launch.rocket),
+                                  ),
+                                  ChangeNotifierProvider(
+                                    create: (context) => LaunchpadProvider(launchpadId: launch.id),
+                                  ),
+                                ],
+                                child: LaunchDetailPage(launch: launch),
                               ),
                               transitionsBuilder: (context, animation1, animation2, child) {
                                 return SlideTransition(
