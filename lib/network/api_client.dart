@@ -10,17 +10,11 @@ class ApiClient {
 
   Future<List<SortedLaunches>> fetchPastLaunches() async {
     try {
-      final response =
-          await _dio.get('https://api.spacexdata.com/v5/launches/past');
+      final response = await _dio.get('https://api.spacexdata.com/v5/launches/past');
       if (response.statusCode == 200) {
         final List<Launch> launchList =
             response.data.map<Launch>((json) => Launch.fromJson(json)).toList();
-        launchList.sort((a, b) => b.date_utc.compareTo(a.date_utc));
-        return groupBy(launchList, (Launch launch) => launch.date_utc.substring(0, 7))
-            .entries
-            .map((entry) {
-          return SortedLaunches(entry.key.toLaunchMonth(), entry.value);
-        }).toList();
+        return _groupLaunchesByMonth(launchList);
       } else {
         throw Exception('Error fetching data :(');
       }
@@ -30,14 +24,13 @@ class ApiClient {
     }
   }
 
-  Future<List<Launch>> fetchUpcomingLaunches() async {
+  Future<List<SortedLaunches>> fetchUpcomingLaunches() async {
     try {
-      final response =
-          await _dio.get('https://api.spacexdata.com/v5/launches/upcoming');
+      final response = await _dio.get('https://api.spacexdata.com/v5/launches/upcoming');
       if (response.statusCode == 200) {
         final List<Launch> launchList =
             response.data.map<Launch>((json) => Launch.fromJson(json)).toList();
-        return launchList;
+        return _groupLaunchesByMonth(launchList);
       } else {
         throw Exception('Error fetching data :(');
       }
@@ -45,5 +38,14 @@ class ApiClient {
       print(e);
       return [];
     }
+  }
+
+  List<SortedLaunches> _groupLaunchesByMonth(List<Launch> launchList) {
+    launchList.sort((a, b) => b.date_utc.compareTo(a.date_utc));
+    return groupBy(launchList, (Launch launch) => launch.date_utc.substring(0, 7))
+        .entries
+        .map((entry) {
+      return SortedLaunches(entry.key.toLaunchMonth(), entry.value);
+    }).toList();
   }
 }
