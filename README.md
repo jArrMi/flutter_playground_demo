@@ -1,16 +1,35 @@
-# flutter_playrground_1
+# SpaceX Launch Tracker
 
-SpaceX API Demo Project
+This project is a SpaceX launch tracking application built with Flutter. It provides information
+about past and upcoming SpaceX launches, details about the rockets used, and the launchpads.
+
+## Features
+
+- View a list of past and upcoming SpaceX launches
+- Detailed information about each launch
+- Information about the rockets used in each launch
+- Information about the launchpads
+
+## Languages and Tools Used
+
+- Dart
+- Pub
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+To get a local copy up and running, follow these simple steps:
 
-A few resources to get you started if this is your first Flutter project:
+### Prerequisites
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Flutter SDK
+- Dart SDK
+- Android Studio or VS Code
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Installation
+
+1. Clone the repo
+   ```sh
+   git clone https://github.com/jArrMi/SpaceX-Launch-Tracker.git
+
+2. Open the project in the IDE of your choice.
+3. Build and run the project on your emulator or physical device.
