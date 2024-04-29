@@ -44,6 +44,13 @@ class LaunchpadCard extends StatelessWidget {
                   launchpad.details,
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
+                const SizedBox(height: 8.0),
+                Image.network(
+                  "https://maps.geoapify.com/v1/staticmap?style=osm-bright-smooth&width=600&height=400&center=lonlat:${launchpad.longitude},${launchpad.latitude}&zoom=15&apiKey=ec2cfc934e3d4fb3b4ce098ed5f5492f",
+                  height: 175.0,
+                  width: double.infinity,
+                  fit: BoxFit.fitWidth,
+                ),
               ],
             ),
           ),
