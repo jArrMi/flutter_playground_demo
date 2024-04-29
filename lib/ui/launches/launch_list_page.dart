@@ -4,6 +4,7 @@ import 'package:flutter_playrground_1/provider/launchpad_provider.dart';
 import 'package:flutter_playrground_1/provider/past_launch_provider.dart';
 import 'package:flutter_playrground_1/provider/rocket_provider.dart';
 import 'package:flutter_playrground_1/provider/upcoming_launch_provider.dart';
+import 'package:flutter_playrground_1/ui/design/components/Avatar.dart';
 import 'package:flutter_playrground_1/ui/details/launch_detail_page.dart';
 import 'package:flutter_playrground_1/utils/formatters.dart';
 import 'package:provider/provider.dart';
@@ -62,17 +63,9 @@ class LaunchListPage extends StatelessWidget {
                       return ListTile(
                         leading: ClipRRect(
                           borderRadius: BorderRadius.circular(8),
-                          child: launch.links.patch.small != null
-                              ? Image.network(
-                                  launch.links.patch.small!,
-                                  width: 100,
-                                  height: 100,
-                                )
-                              : Image.asset(
-                                  'assets/images/rocket_launch.png',
-                                  width: 100,
-                                  height: 100,
-                                ),
+                          child: Avatar(
+                            imageUrl: launch.links.patch.small,
+                          ),
                         ),
                         title: Text(launch.name),
                         subtitle: Text(launch.date_local.formattedDate()),
@@ -86,7 +79,8 @@ class LaunchListPage extends StatelessWidget {
                                     create: (context) => RocketProvider(rocketId: launch.rocket),
                                   ),
                                   ChangeNotifierProvider(
-                                    create: (context) => LaunchpadProvider(launchpadId: launch.launchpad),
+                                    create: (context) =>
+                                        LaunchpadProvider(launchpadId: launch.launchpad),
                                   ),
                                 ],
                                 child: LaunchDetailPage(launch: launch),

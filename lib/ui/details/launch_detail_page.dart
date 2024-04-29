@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_playrground_1/models/launch.dart';
 import 'package:flutter_playrground_1/provider/launchpad_provider.dart';
 import 'package:flutter_playrground_1/provider/rocket_provider.dart';
+import 'package:flutter_playrground_1/ui/design/components/Avatar.dart';
 import 'package:flutter_playrground_1/ui/design/components/launchpad_card_details.dart';
 import 'package:flutter_playrground_1/ui/design/components/rocket_card_details.dart';
 import 'package:flutter_playrground_1/utils/formatters.dart';
@@ -30,20 +31,39 @@ class _LaunchDetailPageState extends State<LaunchDetailPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              widget.launch.links.patch.small != null
-                  ? Image.network(
-                      widget.launch.links.patch.small!,
-                      height: 100,
-                    )
-                  : Image.asset(
-                      'assets/images/rocket_launch.png',
-                      height: 100,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Avatar(imageUrl: widget.launch.links.patch.small),
+                  const SizedBox(width: 10),
+                  Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+                    Text(
+                      widget.launch.date_local.formattedDate(),
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
-              const SizedBox(height: 10),
-              Text(
-                'Launch Date: ${widget.launch.date_local.formattedDate()}',
-                style: const TextStyle(fontSize: 20),
+                    if (widget.launch.links.wikipedia != null)
+                      TextButton(
+                        onPressed: () {
+                          _launchURL(widget.launch.links.wikipedia!);
+                        },
+                        child: const Text(
+                          'Wikipedia Link',
+                          style: TextStyle(fontSize: 16, color: Colors.blue),
+                        ),
+                      ),
+                  ]),
+                  const SizedBox(width: 10),
+                  if (widget.launch.success != null)
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Icon(
+                        widget.launch.success! ? Icons.check : Icons.close,
+                        color: widget.launch.success! ? Colors.green : Colors.red,
+                      ),
+                    ),
+                ],
               ),
+              const SizedBox(height: 10),
               const SizedBox(height: 10),
               widget.launch.details != null
                   ? Text(
@@ -72,17 +92,6 @@ class _LaunchDetailPageState extends State<LaunchDetailPage> {
                 },
               ),
               const SizedBox(height: 10),
-              widget.launch.links.wikipedia != null
-                  ? TextButton(
-                      onPressed: () {
-                        _launchURL(widget.launch.links.wikipedia!);
-                      },
-                      child: const Text(
-                        'Wikipedia Link',
-                        style: TextStyle(fontSize: 16, color: Colors.blue),
-                      ),
-                    )
-                  : Container(),
             ],
           ),
         ),
